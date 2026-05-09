@@ -27,6 +27,12 @@ app.add_middleware(
 )
 
 
+@app.get("/")
+@app.get("/health")
+def health_check():
+    return {"status": "healthy", "service": "Teacher Revision Skill API"}
+
+
 # ── Request / Response Schemas ──────────────────────
 class RegisterRequest(BaseModel):
     username: str

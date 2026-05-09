@@ -1,6 +1,9 @@
-
-
-streamlit
-google-generativeai
+fastapi
+uvicorn
+sqlalchemy
+python-jose[cryptography]
+python-multipart
+openai
 PyPDF2
 numpy
+python-dotenv
