@@ -1,0 +1,178 @@
+/* ═══════════════════════════════════════════════════
+   Practice Page Styles
+   ═══════════════════════════════════════════════════ */
+
+.practice {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ── */
+.practice-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-xl);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  background: var(--color-surface-glass);
+  backdrop-filter: blur(12px);
+  flex-wrap: wrap;
+}
+
+.practice-header h1 {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  flex: 1;
+}
+
+.practice-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.practice-doc-name {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  background: var(--color-surface-raised);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+}
+
+.practice-level-badge {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-primary);
+  background: rgba(99, 102, 241, 0.12);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+}
+
+/* ── Error ── */
+.practice-error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: var(--color-error);
+  padding: var(--space-sm) var(--space-md);
+  margin: var(--space-md) var(--space-xl) 0;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+}
+
+/* ── Layout ── */
+.practice-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  padding: var(--space-xl);
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.practice-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.practice-panel h2 {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ── Scenario ── */
+.scenario-box {
+  line-height: 1.8;
+  font-size: var(--font-size-md);
+  animation: slideUp 0.4s ease-out;
+}
+
+.scenario-empty {
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: var(--space-3xl);
+}
+
+/* ── Answer ── */
+.answer-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  animation: slideUp 0.4s ease-out 0.1s both;
+}
+
+.answer-section h3 {
+  font-size: var(--font-size-md);
+  font-weight: 500;
+}
+
+.answer-textarea {
+  resize: vertical;
+  min-height: 180px;
+  line-height: 1.7;
+}
+
+/* ── Feedback ── */
+.feedback-box {
+  animation: slideUp 0.4s ease-out;
+  border-left: 3px solid var(--color-primary);
+}
+
+.feedback-content {
+  line-height: 1.8;
+  font-size: var(--font-size-md);
+}
+
+.feedback-content strong {
+  color: var(--color-primary);
+}
+
+.feedback-empty {
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: var(--space-3xl);
+}
+
+/* ── Footer ── */
+.practice-footer {
+  text-align: center;
+  padding: var(--space-md);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  border-top: 1px solid rgba(148, 163, 184, 0.08);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .practice-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .practice-header {
+    flex-wrap: wrap;
+  }
+}
+
+/* Reuse slideUp from App.css */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

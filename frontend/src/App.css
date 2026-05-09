@@ -1,0 +1,131 @@
+/* ═══════════════════════════════════════════════════
+   App Component Styles
+   ═══════════════════════════════════════════════════ */
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ── */
+.app-header {
+  text-align: center;
+  padding: var(--space-3xl) var(--space-xl) var(--space-xl);
+  background: linear-gradient(
+    180deg,
+    rgba(59, 130, 246, 0.08) 0%,
+    transparent 100%
+  );
+}
+
+.logo-mark {
+  font-size: 3.5rem;
+  margin-bottom: var(--space-md);
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.app-header h1 {
+  font-size: var(--font-size-4xl);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--space-sm);
+}
+
+.tagline {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+/* ── Main Content ── */
+.app-main {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: var(--space-xl);
+}
+
+.hero-card {
+  background: var(--color-surface-glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  border-radius: var(--radius-xl);
+  padding: var(--space-3xl);
+  max-width: 560px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-card h2 {
+  font-size: var(--font-size-2xl);
+  font-weight: 600;
+  margin-bottom: var(--space-md);
+  color: var(--color-text);
+}
+
+.hero-card p {
+  font-size: var(--font-size-md);
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: var(--space-xl);
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+}
+
+.hero-actions .btn {
+  padding: var(--space-md) var(--space-2xl);
+  font-size: var(--font-size-lg);
+}
+
+/* ── Footer ── */
+.app-footer {
+  text-align: center;
+  padding: var(--space-lg);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  border-top: 1px solid rgba(148, 163, 184, 0.08);
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .app-header h1 {
+    font-size: var(--font-size-2xl);
+  }
+
+  .hero-card {
+    padding: var(--space-xl);
+  }
+
+  .hero-actions .btn {
+    padding: var(--space-sm) var(--space-lg);
+    font-size: var(--font-size-md);
+  }
+}

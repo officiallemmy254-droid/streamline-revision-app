@@ -13,39 +13,45 @@ Educators need a structured and interactive way to revise Teaching Diploma conte
 A full-stack web application that allows teachers to securely upload their Teaching Diploma PDFs and engage with an AI-driven "Revision Engine". The app uses in-memory RAG to generate realistic classroom dilemmas (Bloom's Application level) and provide qualitative pedagogical feedback (Bloom's Evaluation level) based strictly on the uploaded materials.
 
 ## User Stories
-1. As a teacher, I want to create a secure account so that my revision materials and history are kept private.
-2. As a teacher, I want to upload multiple PDF documents so that I can centralize all my Teaching Diploma resources.
-3. As a teacher, I want the system to analyze my PDFs so that it can generate scenarios relevant to my specific curriculum.
-4. As a teacher, I want to receive classroom dilemmas based on "Active Learning" theories so that I can practice my application skills.
-5. As a teacher, I want to submit my answers to scenarios so that I can test my pedagogical judgment.
-6. As a teacher, I want to receive qualitative feedback that cites specific theories from my PDFs so that I know exactly where I am aligned and where I have gaps.
-7. As a teacher, I want "Next Steps" in my feedback so that I have a clear path for further reflection or study.
-8. As a teacher, I want a modern dashboard so that I can easily navigate between my uploaded documents and practice sessions.
-9. As an administrator, I want the system to follow "Minimal Risk" AI guidelines so that no personal student data is generated or stored.
+1. As a learner, I want to create a secure account so that my revision materials and history are kept private.
+2. As a learner, I want to upload multiple PDF documents so that I can centralise all my study resources.
+3. As a learner, I want the system to analyse my PDFs so that it can generate challenges relevant to my specific curriculum.
+4. As a learner, I want to receive academic challenges calibrated to my learner level so that I can practise applying the right depth of reasoning.
+5. As a learner, I want to submit my responses to challenges so that I can test my understanding.
+6. As a learner, I want to receive qualitative feedback that cites specific concepts from my uploaded material so that I know exactly where I am aligned and where I have gaps.
+7. As a learner, I want "Dig Deeper" next steps in my feedback so that I have a clear path for further reflection or study.
+8. As a learner, I want a modern dashboard so that I can easily navigate between my uploaded documents and practice sessions.
+9. As a learner, I want to **export my revision history to PDF** so that I can review my progress offline or submit it as evidence of self-study.
+10. As an administrator, I want the system to follow "Minimal Risk" AI guidelines so that no personal data is generated or stored.
 
 ## Implementation Decisions
 
 ### Architecture
-- **Frontend**: React with TypeScript and Vanilla CSS for a responsive, high-fidelity UI.
-- **Backend**: FastAPI (Python) for high performance and seamless integration with the Gemini AI libraries.
-- **Authentication**: JWT-based auth with secure password hashing (using `passlib` and `python-jose`).
-- **Database**: SQLite for metadata persistence (users, document references) to maintain simplicity in the initial phase.
+- **Frontend**: React with TypeScript and Vanilla CSS.
+- **Backend**: FastAPI (Python) for AI orchestration and RAG logic.
+- **Authentication**: Clerk (managed authentication) with middleware in FastAPI to verify tokens.
+- **Database**: Supabase (managed PostgreSQL) for storing user profiles and document metadata.
+- **Infrastructure & Monitoring**: 
+  - **DNS**: Cloudflare.
+  - **Analytics**: PostHog.
+  - **Error Tracking**: Sentry.
 
 ### Modules
-- **AuthModule**: Handles `/register`, `/login`, and `get_current_user` logic.
-- **DocumentModule**: Handles file uploads to a secure storage path and text extraction via `PyPDF2`.
+- **AuthModule**: Integrates Clerk SDK on the frontend and validates Clerk JWTs on the FastAPI backend.
+- **DocumentModule**: Handles file uploads (potentially leveraging Supabase Storage) and text extraction via `PyPDF2`.
 - **RevisionEngine**:
     - **Retriever**: Uses Gemini `text-embedding-004` to create and search vector representations of PDF chunks.
     - **Generator**: Uses Gemini `1.5-flash` to produce scenarios and feedback based on `skill.md` prompts.
-- **UI Components**: `Dashboard`, `UploadZone`, `PracticeArena`, `FeedbackPanel`.
+- **Observability**: PostHog integrated for user event tracking; Sentry integrated on both frontend and backend for crash reporting.
 
 ### API Contracts
-- `POST /auth/register`: Create a new user.
-- `POST /auth/token`: Login and receive JWT.
-- `POST /documents/upload`: Upload PDF and trigger indexing.
-- `GET /documents`: List user's documents.
-- `POST /revision/generate`: Get a new scenario for a specific document.
-- `POST /revision/feedback`: Submit an answer and get qualitative critique.
+- `POST /documents/upload`: Upload PDF (authenticated).
+- `GET /documents`: List user's documents (authenticated).
+- `DELETE /documents/{id}`: Delete a document and its chunks (authenticated).
+- `POST /revision/generate`: Get a new academic challenge for a specific document (authenticated).
+- `POST /revision/feedback`: Submit a response and get qualitative critique (authenticated).
+- `GET /revision/history`: Retrieve the user's revision session history (authenticated).
+- `GET /revision/history/export`: Export the full revision history as a downloadable PDF (authenticated).
 
 ## Testing Decisions
 - **Unit Tests**: Focus on the `RevisionEngine`'s ability to extract and chunk text correctly.
@@ -54,9 +60,8 @@ A full-stack web application that allows teachers to securely upload their Teach
 - **Behavioral Testing**: Ensure the AI never provides numerical grades and always cites theories as defined in `skill.md`.
 
 ## Out of Scope
-- Support for non-PDF file formats (Word, Powerpoint).
+- Support for non-PDF file formats (Word, PowerPoint).
 - Real-time collaborative revision sessions.
-- Direct export of revision history to PDF.
 
 ## Further Notes
 - The application will utilize the Gemini Free Tier; rate limiting must be handled gracefully in the backend.
