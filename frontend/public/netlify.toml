@@ -1,7 +1,7 @@
 [[redirects]]
   from = "/api/*"
   # Replace with your actual backend URL after deployment (e.g., https://your-backend.onrender.com/:splat)
-  to = "https://your-backend-placeholder.onrender.com/:splat"
+  to = "https://streamline-revision-app.onrender.com/:splat"
   status = 200
 
 [[redirects]]
